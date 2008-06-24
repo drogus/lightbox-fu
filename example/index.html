@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>LightBoxFu</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	    <link href="../stylesheets/lightbox-fu.css" media="screen" rel="Stylesheet" type="text/css" />
+	    
+	    <!--[if IE 7]>
+	      <link rel="stylesheet" type="text/css" href="../stylesheets/lightbox-fu-ie7.css" />
+	    <![endif]-->    
+	    <!--[if IE 6]>
+	      <link rel="stylesheet" type="text/css" href="../stylesheets/lightbox-fu-ie6.css" />
+	    <![endif]-->
+		<script src="../lib/jquery.js"></script>
+		<script src="../jquery.lightBoxFu.js"></script>
+		<script type="text/javascript">
+			$(function() {
+     			$('.normal').lightBoxFu({html: "<strong>Some</strong> nasty text!"});
+     			$('.no-close').lightBoxFu({html: "You can't <strong>close</strong> me!", closeOnClick: false});
+			});
+		</script>
+	</head>
+	
+	<body>  
+		<a href="#" class="no-close">Open lightbox-fu with some HTML (no way to close)</a><br/>
+		<a href="#" class="normal">Open lightbox-fu with some HTML</a>
+	</body>
+</html>
+

@@ -8,40 +8,27 @@
  *
  */
 
-var test;
-
 (function($) {
   $.extend($, {lightBoxFu: {}});
   $.extend($.lightBoxFu, {
     initialize: function () {
       if($('#lightboxfu').length == 0) {
-        element = $.create(
-          'div', { 'id':"lightboxfu" }, [
-            'div', { 'id':"lOverlay" }, [
-              'div', {'id':'lWindow'}, [
-                 'div', {'id':'lInner'}, ["jakis tekst"]
-              ]
-            ]
-          ]
-        );
-        $(element).appendTo(document.body);
-        $('#lOverlay').click(function() {
-          $.lightBoxFu.close();
-        });
+        html = '<div id="lightboxfu"><div id="lOverlay"><div id="lWindow"><div id="lInner"></div></div></div></div>';
+        $(html).appendTo(document.body);
       }
-      
-      $('a[@rel=lightboxfu]').lightBoxFu({image:true});
     },
-    open: function(html,options) {
+    open: function(options) {
       options = options || {};
-      if(html.length>0) {
-        $('#lInner').html(html);
+      if(options.html.length>0) {
+        $('#lInner').html(options.html);
       }
       $('#lightboxfu').show();
       width = options.width || $('#lighBoxFuImage').width() || '250';
       $('#lInner').css({'width': width});
       
-      
+      if(options.closeOnClick != false) {
+		$('#lOverlay').one('click', $.lightBoxFu.close);
+	  }
     },
     close: function() {
       $('#lightboxfu').hide();
@@ -52,9 +39,12 @@ var test;
 	  lightBoxFu: function(options){
 		  return this.each(function() {
         $(this).click(function() {
-          $.lightBoxFu.open(options.html);
+			$.lightBoxFu.open(options);
           return false;
         });
       });
   }});
+  
+  $(function() {$.lightBoxFu.initialize();});
 })(jQuery);
+
