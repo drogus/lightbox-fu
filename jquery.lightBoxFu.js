@@ -15,7 +15,7 @@
       if($('#lightboxfu').length == 0) {
 	  	options = {stylesheetsPath: '/stylesheets/', imagesPath: '/images/'};
 	  	jQuery.extend(options, o);
-        html = '<div id="lightboxfu"><div id="lOverlay" style="background: url('+options.imagesPath+'overlay.png);"><div id="lWindow"><div id="lInner"></div></div></div></div>';
+        html = '<div id="lightboxfu"><div id="lOverlay"><div id="lWindow"><div id="lInner"></div></div></div></div>';
 		html += '<link href="'+options.stylesheetsPath+'lightbox-fu.css" media="screen" rel="Stylesheet" type="text/css" />';
 		if ($.browser.msie && $.browser.version == '6.0') {
 			html += '<link rel="stylesheet" type="text/css" href="'+options.stylesheetsPath+'lightbox-fu-ie6.css" />';
@@ -24,6 +24,9 @@
 			html += '<link rel="stylesheet" type="text/css" href="'+options.stylesheetsPath+'lightbox-fu-ie7.css" />';
 		}
         $('body').append(html);
+		if(!$.browser.msie) {
+			$('#lOverlay').css('background', 'url('+options.imagesPath+'overlay.png) fixed');
+		}
       }
     },
     open: function(options) {
