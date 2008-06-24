@@ -1,0 +1,7 @@
+Really simple lightbox. You can open lightbox with given dimensions and html. 
+
+It's build to be fast and really light - all positioning is based on CSS (with some expressions hacks for IE6 and IE7).
+
+Based on overlay by Riddle:
+http://perfectionorvanity.com/2007/04/08/polprzezroczyste-warstwy-overlay-i-okienka-div/
+http://riddle.pl/-/xhtml/css-overlay/overlay-fixed-final.html
