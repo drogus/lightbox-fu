@@ -14,7 +14,13 @@
     initialize: function () {
       if($('#lightboxfu').length == 0) {
         html = '<div id="lightboxfu"><div id="lOverlay"><div id="lWindow"><div id="lInner"></div></div></div></div>';
-        $(html).appendTo(document.body);
+		html += '<link href="../stylesheets/lightbox-fu.css" media="screen" rel="Stylesheet" type="text/css" />';
+		if ($.browser.msie && $.browser.version == '6.0') {
+			html += '<link rel="stylesheet" type="text/css" href="../stylesheets/lightbox-fu-ie6.css" />';
+		} else if($.browser.msie && $.browser.version == '7.0') {
+			html += '<link rel="stylesheet" type="text/css" href="../stylesheets/lightbox-fu-ie7.css" />';
+		}
+        $(document.body).append(html);
       }
     },
     open: function(options) {
