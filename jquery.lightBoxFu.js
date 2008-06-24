@@ -32,17 +32,6 @@ var test;
       
       $('a[@rel=lightboxfu]').lightBoxFu({image:true});
     },
-    openImage: function(url) {
-      img = $('<img id="lighBoxFuImage"/>');
-		  $('#lInner').html("");
-
-		  img.load(function(){
-        img.appendTo('#lInner');
-        $.lightBoxFu.open('');
-      });
-      img.attr('src', url);
-            
-    },
     open: function(html,options) {
       options = options || {};
       if(html.length>0) {
@@ -63,11 +52,7 @@ var test;
 	  lightBoxFu: function(options){
 		  return this.each(function() {
         $(this).click(function() {
-          if(options.image) {
-            $.lightBoxFu.openImage($(this).attr('href'));
-          } else {
-            $.lightBoxFu.open(options.html);
-          }
+          $.lightBoxFu.open(options.html);
           return false;
         });
       });
