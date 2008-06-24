@@ -11,16 +11,19 @@
 (function($) {
   $.extend($, {lightBoxFu: {}});
   $.extend($.lightBoxFu, {
-    initialize: function () {
+    initialize: function (o) {
       if($('#lightboxfu').length == 0) {
-        html = '<div id="lightboxfu"><div id="lOverlay"><div id="lWindow"><div id="lInner"></div></div></div></div>';
-		html += '<link href="../stylesheets/lightbox-fu.css" media="screen" rel="Stylesheet" type="text/css" />';
+	  	options = {stylesheetsPath: '/stylesheets/', imagesPath: '/images/'};
+	  	jQuery.extend(options, o);
+        html = '<div id="lightboxfu"><div id="lOverlay" style="background: url('+options.imagesPath+'overlay.png);"><div id="lWindow"><div id="lInner"></div></div></div></div>';
+		html += '<link href="'+options.stylesheetsPath+'lightbox-fu.css" media="screen" rel="Stylesheet" type="text/css" />';
 		if ($.browser.msie && $.browser.version == '6.0') {
-			html += '<link rel="stylesheet" type="text/css" href="../stylesheets/lightbox-fu-ie6.css" />';
+			html += '<link rel="stylesheet" type="text/css" href="'+options.stylesheetsPath+'lightbox-fu-ie6.css" />';
+			$('body').css('background', 'url('+options.imagesPath+'blank.gif) fixed');
 		} else if($.browser.msie && $.browser.version == '7.0') {
-			html += '<link rel="stylesheet" type="text/css" href="../stylesheets/lightbox-fu-ie7.css" />';
+			html += '<link rel="stylesheet" type="text/css" href="'+options.stylesheetsPath+'lightbox-fu-ie7.css" />';
 		}
-        $(document.body).append(html);
+        $('body').append(html);
       }
     },
     open: function(options) {
@@ -50,7 +53,5 @@
         });
       });
   }});
-  
-  $(function() {$.lightBoxFu.initialize();});
 })(jQuery);
 
