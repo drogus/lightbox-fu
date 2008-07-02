@@ -31,16 +31,14 @@
     },
     open: function(options) {
       options = options || {};
-      if(options.html.length>0) {
-        $('#lInner').html(options.html);
-      }
+      $('#lInner').html(options.html);
       $('#lightboxfu').show();
-      width = options.width || $('#lighBoxFuImage').width() || '250';
+      var width = options.width || '250';
       $('#lInner').css({'width': width});
       
       if(options.closeOnClick != false) {
-		$('#lOverlay').one('click', $.lightBoxFu.close);
-	  }
+        $('#lOverlay').one('click', $.lightBoxFu.close);
+      }
     },
     close: function() {
       $('#lightboxfu').hide();
