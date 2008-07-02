@@ -2,6 +2,20 @@ Really simple lightbox. You can open lightbox with given dimensions and html.
 
 It's build to be fast and really light - all positioning is based on CSS (with some expressions hacks for IE6 and IE7).
 
-Based on overlay by Riddle:
+Usage:
+Initialize lightbox and give custom paths to images and stylesheets:
+
+$.lightBoxFu.initialize({imagesPath: '/images/', stylesheetsPath: '/stylesheets/'});
+
+Open lightbox with given html and width:
+
+$.lightBoxFu.open({
+        html: "Some <b>shiny</b> HTML.",
+        width: "250px",
+        /* don't let the user close lightBoxFu by clicking on an overlay */
+	closeOnClick: false
+      });
+
+Based on overlay by Riddle (riddle.pl):
 http://perfectionorvanity.com/2007/04/08/polprzezroczyste-warstwy-overlay-i-okienka-div/
 http://riddle.pl/-/xhtml/css-overlay/overlay-fixed-final.html
