@@ -1,0 +1,24 @@
+.lightboxfu .lOverlay {
+  display: table;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.lightboxfu .lOverlay .lWindow {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.lightboxfu .lOverlay .lInner {
+  width: 300px;
+  margin: 0 auto;
+  background-color: #fff;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  max-height: 350px;
+  padding: 15px;
+  overflow: auto;
+}
