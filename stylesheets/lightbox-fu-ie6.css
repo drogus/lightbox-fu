@@ -1,20 +1,21 @@
-#lightboxfu {
+.lightboxfu {
   display: none;
 }
 
-#lOverlay {
+.lOverlay {
 	background: none;
 	-ieh: expression(
 		this.parsed ? 0 : (
 			img = document.createElement('div'),
 			img.id = 'ov',
+      img.class = 'ov',
 			this.parentNode.insertBefore(img, this),
 			this.parsed = 1
 		)
 	)
 }
 
-#lOverlay, #ov {
+.lOverlay, .ov {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -26,17 +27,17 @@
   );
 }
 
-#ov {
+.ov {
 	background-color: #000;
 	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=60);
 }
 
-#lOverlay #lWindow {
+.lOverlay .lWindow {
 	position: absolute;
 	top: 50%;
 }
 
-#lOverlay #lInner {
+.lOverlay .lInner {
 	position: relative;
 	top: -50%;
 	height: expression(this.scrollHeight > 350 ? '350px' : 'auto' );

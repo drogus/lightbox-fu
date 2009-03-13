@@ -8,58 +8,114 @@
  *
  */
 
+/*
+ * 1. API lightBoxFu:
+ *    $.lightBoxFu("jakis tekst", {skin: 'red'});
+ *    $.lightBoxFu("jakis tekst"); // skin default
+ *    $.lightBoxFu.close();
+ *
+ * 2. 
+ *
+ */
+
 (function($) {
-  $.extend($, {lightBoxFu: {}});
+  $.lightBoxFu = function(data, options) {
+    var self = this;
+    // dobre do pokazania na czytelność ??
+    options = $.extend({}, $.lightBoxFu.defaultOptions, options);
+
+    $.lightBoxFu.loading(options);
+    $.lightBoxFu.open(data, options);
+  };
+
   $.extend($.lightBoxFu, {
-    initialize: function (o) {
-      if($('#lightboxfu').length == 0) {
-	  	options = {stylesheetsPath: '/stylesheets/', imagesPath: '/images/'};
-	  	jQuery.extend(options, o);
-        html = '<div id="lightboxfu" style="display: none"><div id="lOverlay"><div id="lWindow"><div id="lInner"></div></div></div></div>';
-		if ($.browser.msie && $.browser.version == '6.0') {
-			html += '<link rel="stylesheet" type="text/css" href="'+options.stylesheetsPath+'lightbox-fu-ie6.css" />';
-			$('body').css('background', 'url('+options.imagesPath+'blank.gif) fixed');
-		} else if($.browser.msie && $.browser.version == '7.0') {
-			html += '<link rel="stylesheet" type="text/css" href="'+options.stylesheetsPath+'lightbox-fu-ie7.css" />';
-		}
-        $('body').append(html);
-		if(!$.browser.msie) {
-			$('#lOverlay').css('background', 'url('+options.imagesPath+'overlay.png) fixed');
-		}
-        
-	$.lightBoxFu.appendStyle();
-      }
-    },
-    open: function(options) {
+    loading: function (options) {
       options = options || {};
-      $('#lInner').html(options.html);
-      $('#lightboxfu').show();
+      options.skin = options.skin || 'default';
+      var lightbox = $(".lightboxfu." + options.skin);
+
+      if(lightbox.length != 0) return 0;
+
+      html = this.skins[options.skin];
+
+      if(!$.data(document.body, "lightboxfu.initialized")) {
+        if ($.browser.msie && $.browser.version == '6.0') {
+          html += '<link rel="stylesheet" type="text/css" href="'+options.stylesheetsPath+'lightbox-fu-ie6.css" />';
+          $('body').css('background', 'url('+options.imagesPath+'blank.gif) fixed');
+        } else if($.browser.msie && $.browser.version == '7.0') {
+          html += '<link rel="stylesheet" type="text/css" href="'+options.stylesheetsPath+'lightbox-fu-ie7.css" />';
+        }
+      }
+
+      $.data(document.body, "lightboxfu.initialized", true)
+
+      $('body').append(html);
+     	
+      $.lightBoxFu.appendStyle(options);
+    },
+    setDefaults: function(options) {
+      $.extend($.lightBoxFu.defaultOptions, options);
+    },
+    defaultOptions: {
+      skin: 'default',
+      stylesheetsPath: '/stylesheets/', 
+      imagesPath: '/images/'
+    },
+    open: function(data, options) {
+      options = options || {};
+      options.skin = options.skin || 'default';
+      var lightbox = $(".lightboxfu." + options.skin);
+
+      $('.lInner .content', lightbox).html(data);
+      lightbox.show();
       var width = options.width || '250';
-      $('#lInner').css({'width': width});
+      $('.lInner', lightbox).css({'width': width});
       
       if(options.closeOnClick != false) {
-        $('#lOverlay').one('click', $.lightBoxFu.close);
+        $('.lOverlay', lightbox).one('click', $.lightBoxFu.close);
       }
     },
     close: function() {
-      $('#lightboxfu').hide();
+      $('.lightboxfu').hide();
     },
-    appendStyle: function() {
-      if(!$.browser.msie) {
-          $('#lOverlay').css({display: 'table'});
-          $('#lOverlay #lWindow').css({display: 'table-cell'});
-      }
-      $('#lOverlay').css({position: 'fixed', top: 0, left: 0, width: "100%", height: "100%"});
-      $('#lOverlay #lWindow').css({'vertical-align': 'middle'});
-      $('#lOverlay #lInner').css({width: '300px', 'background-color': '#fff', '-webkit-border-radius': '10px', '-moz-border-radius': '10px', 'max-height': '350px', margin: '0 auto', padding: '15px', overflow: 'auto'});
+    appendStyle: function(options) {
+      options = options || {};
+      options.skin = options.skin || "default";
+      var lightbox = $(".lightboxfu." + options.skin);
+		  if(!$.browser.msie) {
+			  $('.lOverlay', lightbox).css('background', 'url('+options.imagesPath+'overlay.png) fixed');
+		  }
+    },
+    skins: {
+      default: '<div class="lightboxfu default" style="display: none"> \
+                  <div class="lOverlay"> \
+                    <div class="lWindow"> \
+                      <div class="lInner"> \
+                        <div class="content"> \
+                        </div> \
+                      </div> \
+                    </div> \
+                  </div> \
+                </div>',
+      red: '<div class="lightboxfu red" style="display: none"> \
+                  <div class="lOverlay"> \
+                    <div class="lWindow"> \
+                      <div class="lInner"> \
+                        <div class="header">aaa</div> \
+                        <div class="content"> \
+                        </div> \
+                      </div> \
+                    </div> \
+                  </div> \
+                </div>'
     }
   });
   
   $.extend($.fn, {
-	  lightBoxFu: function(options){
+	  lightBoxFu: function(data, options){
 		  return this.each(function() {
         $(this).click(function() {
-			$.lightBoxFu.open(options);
+			$.lightBoxFu(data, options);
           return false;
         });
       });

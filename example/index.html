@@ -8,12 +8,21 @@
 			html, body {padding: 0px; margin: 0px;}
 		</style>
 		<script src="../lib/jquery.js"></script>
-		<script src="../jquery.lightBoxFu.js"></script>
+    <script src="../jquery.lightBoxFu.js"></script>
+    <link type="text/css" rel="stylesheet" href="../stylesheets/lightBoxFu.css" />
+    <style type="text/css">
+      .lightboxfu.red .lInner {
+        background: #ff0000;
+      }
+    </style>
 		<script type="text/javascript">
 			$(function() {
-				$.lightBoxFu.initialize({imagesPath: '../images/', stylesheetsPath: '../stylesheets/'});
-     			$('.normal').lightBoxFu({html: "<strong>Some</strong> nasty text!"});
-     			$('.no-close').lightBoxFu({html: "You can't <strong>close</strong> me!", closeOnClick: false});
+          $.lightBoxFu.setDefaults({imagesPath: '../images/', stylesheetsPath: '../stylesheets/'});
+
+          $('.normal').lightBoxFu("blablabla", {skin: 'red'});
+          $('.no-close').bind('click', function() {
+            $.lightBoxFu("jakiś tekst");
+          });
 			});
 		</script>
 	</head>
